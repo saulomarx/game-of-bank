@@ -2,14 +2,27 @@ from random import getrandbits
 
 
 class Player:
-    def __init__(self, wallet=300):
-        self.wallet = wallet
+    def __init__(self, name):
+        self.name = name
+        self.wallet = 300
         self.position = 0
+
+    def receive_money(self, value):
+        self.wallet += value
+
+    def pay(self, value):
+        self.wallet -= value
+
+    def set_position(self, position):
+        self.position = position
+
+    def bankruptcy(self):
+        self.wallet = 0
 
 
 class ImpulsivePlayer(Player):
-    def __init__(self):
-        super.__init__()
+    def __init__(self, name):
+        super().__init__(name)
 
     def will_buy(self, value):
         if value <= self.wallet:
@@ -19,8 +32,8 @@ class ImpulsivePlayer(Player):
 
 
 class DemandingPlayer(Player):
-    def __init__(self):
-        super.__init__()
+    def __init__(self, name):
+        super().__init__(name)
 
     def will_buy(self, value):
         if self.wallet >= value > 50:
@@ -30,8 +43,8 @@ class DemandingPlayer(Player):
 
 
 class CautiousPlayer(Player):
-    def __init__(self):
-        super.__init__()
+    def __init__(self, name):
+        super().__init__(name)
 
     def will_buy(self, value):
         is_buying = (self.wallet - value) >= 80
@@ -42,8 +55,8 @@ class CautiousPlayer(Player):
 
 
 class RandomPlayer(Player):
-    def __init__(self):
-        super.__init__()
+    def __init__(self, name):
+        super().__init__(name)
 
     def will_buy(self, value):
         is_buying = bool(getrandbits(1))
@@ -56,4 +69,10 @@ class RandomPlayer(Player):
 class Building:
     def __init__(self, value):
         self.value = value
+        self.owner = None
+
+    def set_owner(self, owner):
+        self.owner = owner
+
+    def remove_owner(self):
         self.owner = None
