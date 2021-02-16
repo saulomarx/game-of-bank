@@ -67,3 +67,6 @@ class Building:
     def __init__(self, value):
         self.value = value
         self.owner = None
+
+    def set_owner(self, owner):
+        self.owner = owner

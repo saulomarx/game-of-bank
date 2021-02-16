@@ -3,17 +3,23 @@ from models import *
 
 
 def _roll_dice():
-    return random.randrange(1, 7)
+    # TODO CHANGE HERE!
+    return random.randrange(1, 3)
 
 
 def _tabletop_move(player, tabletop_size):
     position = player.position
     rolled_dice = _roll_dice()
     new_position = position + rolled_dice
-    if new_position > tabletop_size:
+    if new_position >= tabletop_size:
         new_position -= tabletop_size
         player.receive_money(100)
     player.set_position(new_position)
+    return new_position
+
+
+def buying_building(player, building):
+    building.set_owner(player)
 
 
 def _shuffle_players(players):
@@ -34,6 +40,23 @@ def _start_tabletop():
     return tabletop
 
 
+def _buy_or_pay(player, building):
+    owner = building.owner
+
+    if owner is None:
+        print(player.name)
+        will_buy = player.will_buy(building.value)
+        if will_buy:
+            print("Comprando")
+            buying_building(player, building)
+        else:
+            print("Nao compra")
+    elif owner.name != player.name:
+        print("paga")
+    else:
+        pass
+
+
 def _game():
     max_rounds = 100
 
@@ -47,12 +70,12 @@ def _game():
 
     table_top = _start_tabletop()
     table_top_size = len(table_top)
-    for round in range(max_rounds):
-        print(round+1)
-        for player in all_players:
-            print(player.name)
-            _tabletop_move(player, table_top_size)
 
+    for round in range(max_rounds):
+        for player in all_players:
+            player_position = _tabletop_move(player, table_top_size)
+            if player_position != 0:
+                _buy_or_pay(player, table_top[player_position])
 
 
 if __name__ == "__main__":
