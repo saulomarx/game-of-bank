@@ -27,17 +27,26 @@ def _shuffle_players(players):
 
 
 def _pay_rent(owner_player, paying_player, value):
-    owner_player.receive_money(value)
-    paying_player.pay(value)
+    if paying_player.wallet >= value:
+        owner_player.receive_money(value)
+        paying_player.pay(value)
+    else:
+        paying_player.bankruptcy()
 
 
 def _start_tabletop():
     tabletop = [None]
     for _ in range(20):
-        value = random.randrange(3, 7) * 10
+        value = random.randrange(3, 8) * 10
         building = Building(value)
         tabletop.append(building)
     return tabletop
+
+
+def _remove_bankrupt_player(tabletop, player):
+    for building in tabletop[1:]:
+        if building.owner == player:
+            building.remove_owner()
 
 
 def _buy_or_pay(player, building):
@@ -51,8 +60,9 @@ def _buy_or_pay(player, building):
             buying_building(player, building)
         else:
             print("Nao compra")
-    elif owner.name != player.name:
+    elif owner != player:
         print("paga")
+        _pay_rent(owner, player, building.value)
     else:
         pass
 
@@ -73,9 +83,12 @@ def _game():
 
     for round in range(max_rounds):
         for player in all_players:
-            player_position = _tabletop_move(player, table_top_size)
-            if player_position != 0:
-                _buy_or_pay(player, table_top[player_position])
+            if player.wallet > 0:
+                player_position = _tabletop_move(player, table_top_size)
+                if player_position != 0:
+                    _buy_or_pay(player, table_top[player_position])
+                if player.wallet == 0:
+                    print("faliu")
 
 
 if __name__ == "__main__":

@@ -16,6 +16,9 @@ class Player:
     def set_position(self, position):
         self.position = position
 
+    def bankruptcy(self):
+        self.wallet = 0
+
 
 class ImpulsivePlayer(Player):
     def __init__(self, name):
@@ -70,3 +73,6 @@ class Building:
 
     def set_owner(self, owner):
         self.owner = owner
+
+    def remove_owner(self):
+        self.owner = None
