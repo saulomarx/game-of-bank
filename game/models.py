@@ -19,6 +19,10 @@ class Player:
     def bankruptcy(self):
         self.wallet = 0
 
+    def reset_player(self):
+        self.wallet = 300
+        self.position = 0
+
 
 class ImpulsivePlayer(Player):
     def __init__(self, name):

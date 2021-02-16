@@ -67,8 +67,9 @@ def _show_winner(player_list):
     print(ranked[0].name, "e o vencedor!")
 
 
-def _game():
+def _start_games():
     max_rounds = 1000
+    max_games = 2
 
     player1 = ImpulsivePlayer('Impulsivo')
     player2 = DemandingPlayer('Exigente')
@@ -76,6 +77,14 @@ def _game():
     player4 = RandomPlayer('Aleatorio')
 
     all_players = [player1, player2, player3, player4]
+
+    for game in range(max_games):
+        _single_game(all_players[:], max_rounds)
+        for player in all_players:
+            player.reset_player()
+
+
+def _single_game(all_players, max_rounds):
     _shuffle_players(all_players)
 
     tabletop = _start_tabletop()
@@ -95,4 +104,4 @@ def _game():
 
 
 if __name__ == "__main__":
-    _game()
+    _start_games()
