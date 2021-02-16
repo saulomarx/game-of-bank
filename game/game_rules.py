@@ -34,8 +34,8 @@ def _pay_rent(owner_player, paying_player, value):
 def _start_tabletop():
     tabletop = [None]
     for _ in range(20):
-        value = randrange(3, 8) * 10
-        building = Building(value)
+        rent = randrange(3, 8) * 10
+        building = Building(rent)
         tabletop.append(building)
     return tabletop
 

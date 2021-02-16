@@ -71,8 +71,9 @@ class RandomPlayer(Player):
 
 
 class Building:
-    def __init__(self, value):
-        self.value = value
+    def __init__(self, rent):
+        self.value = rent * 2
+        self.rent = rent
         self.owner = None
 
     def set_owner(self, owner):
