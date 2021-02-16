@@ -83,10 +83,7 @@ def _single_game(all_players, max_rounds):
     return GameStatistics(winner, actual_round)
 
 
-def start_games():
-    max_rounds = 1000
-    max_games = 2
-
+def start_games(max_rounds, max_games):
     player1 = ImpulsivePlayer('Impulsivo')
     player2 = DemandingPlayer('Exigente')
     player3 = CautiousPlayer('Cuidadoso')
