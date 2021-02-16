@@ -1,4 +1,6 @@
 import random
+import operator
+
 from models import *
 
 
@@ -60,6 +62,11 @@ def _buy_or_pay(player, building):
         _pay_rent(owner, player, building.value)
 
 
+def _show_winner(player_list):
+    ranked = sorted(player_list, key=operator.attrgetter("wallet"), reverse=True)
+    print(ranked[0].name, "e o vencedor!")
+
+
 def _game():
     max_rounds = 1000
 
@@ -84,6 +91,7 @@ def _game():
             if player.wallet == 0:
                 _remove_bankrupt_player(tabletop, player)
                 all_players.remove(player)
+    _show_winner(all_players)
 
 
 if __name__ == "__main__":
