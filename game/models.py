@@ -28,9 +28,9 @@ class ImpulsivePlayer(Player):
     def __init__(self, name):
         super().__init__(name)
 
-    def will_buy(self, value):
-        if value <= self.wallet:
-            self.wallet = self.wallet - value
+    def will_buy(self, building):
+        if building.value <= self.wallet:
+            self.wallet = self.wallet - building.value
             return True
         return False
 
@@ -39,9 +39,9 @@ class DemandingPlayer(Player):
     def __init__(self, name):
         super().__init__(name)
 
-    def will_buy(self, value):
-        if self.wallet >= value > 50:
-            self.wallet = self.wallet - value
+    def will_buy(self, building):
+        if self.wallet >= building.value and building.rent > 50:
+            self.wallet = self.wallet - building.value
             return True
         return False
 
@@ -50,10 +50,10 @@ class CautiousPlayer(Player):
     def __init__(self, name):
         super().__init__(name)
 
-    def will_buy(self, value):
-        is_buying = (self.wallet - value) >= 80
+    def will_buy(self, building):
+        is_buying = (self.wallet - building.value) >= 80
         if is_buying:
-            self.wallet = self.wallet - value
+            self.wallet = self.wallet - building.value
             return True
         return False
 
@@ -62,10 +62,10 @@ class RandomPlayer(Player):
     def __init__(self, name):
         super().__init__(name)
 
-    def will_buy(self, value):
+    def will_buy(self, building):
         is_buying = bool(getrandbits(1))
-        if is_buying and value <= self.wallet:
-            self.wallet = self.wallet - value
+        if is_buying and building.value <= self.wallet:
+            self.wallet = self.wallet - building.value
             return True
         return False
 

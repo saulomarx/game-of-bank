@@ -50,7 +50,7 @@ def _buy_or_pay(player, building):
     owner = building.owner
 
     if owner is None:
-        will_buy = player.will_buy(building.value)
+        will_buy = player.will_buy(building)
         if will_buy:
             buying_building(player, building)
     elif owner != player:
