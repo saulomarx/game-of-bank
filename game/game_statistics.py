@@ -1,10 +1,21 @@
-# Quantas partidas terminam por time out (1000 rodadas); Done
-#
-# Quantos turnos em média demora uma partida; done
-#
-# Qual a porcentagem de vitórias por comportamento dos jogadores; done
-#
-# Qual o comportamento que mais vence.
+def _show_best_player(rank):
+    players_by_wins = {}
+    players = rank.keys()
+
+    for player in players:
+        number_of_wins = rank[player]
+        if number_of_wins in players_by_wins:
+            players_by_wins[number_of_wins].append(player.name)
+        else:
+            players_by_wins[number_of_wins] = [player.name]
+
+    players_scores = sorted(players_by_wins.keys(), reverse=True)
+    best_score = players_scores[0]
+    print("Jogador(es) com maior numero de vitorias:")
+    for player in players_by_wins[best_score]:
+        print(player)
+
+
 def _show_win_rate(rank, number_of_games):
     players = rank.keys()
     for player in players:
@@ -45,3 +56,4 @@ def show_game_data(game_results, max_rounds):
     print("Numero de jogos com timeout:", timeout_count)
     print("Duracao media de rounds:", avg_rounds)
     _show_win_rate(rank, len(game_results))
+    _show_best_player(rank)
