@@ -93,6 +93,7 @@ def start_games(max_rounds, max_games):
     game_results = []
 
     for game in range(max_games):
+        print("Start game", game + 1)
         game_result = _single_game(all_players[:], max_rounds)
         game_results.append(game_result)
         for player in all_players:
