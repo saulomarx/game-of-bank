@@ -80,3 +80,9 @@ class Building:
 
     def remove_owner(self):
         self.owner = None
+
+
+class GameStatistics:
+    def __init__(self, winner, number_of_round):
+        self.winner = winner
+        self.number_of_round = number_of_round

@@ -54,7 +54,6 @@ def _buy_or_pay(player, building):
     owner = building.owner
 
     if owner is None:
-        print(player.name)
         will_buy = player.will_buy(building.value)
         if will_buy:
             buying_building(player, building)
@@ -65,6 +64,7 @@ def _buy_or_pay(player, building):
 def _show_winner(player_list):
     ranked = sorted(player_list, key=operator.attrgetter("wallet"), reverse=True)
     print(ranked[0].name, "e o vencedor!")
+    return ranked[0].name
 
 
 def _start_games():
@@ -77,11 +77,14 @@ def _start_games():
     player4 = RandomPlayer('Aleatorio')
 
     all_players = [player1, player2, player3, player4]
+    game_results = []
 
     for game in range(max_games):
-        _single_game(all_players[:], max_rounds)
+        game_result = _single_game(all_players[:], max_rounds)
+        game_results.append(game_result)
         for player in all_players:
             player.reset_player()
+    return game_results
 
 
 def _single_game(all_players, max_rounds):
@@ -100,8 +103,9 @@ def _single_game(all_players, max_rounds):
             if player.wallet == 0:
                 _remove_bankrupt_player(tabletop, player)
                 all_players.remove(player)
-    _show_winner(all_players)
+    winner = _show_winner(all_players)
+    return GameStatistics(winner, actual_round)
 
 
 if __name__ == "__main__":
-    _start_games()
+    game_results = _start_games()
