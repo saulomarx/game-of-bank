@@ -6,6 +6,12 @@ class Player:
         self.wallet = 300
         self.position = 0
 
+    def receive_money(self, value):
+        self.wallet += value
+
+    def pay(self, value):
+        self.wallet -= value
+
 
 class ImpulsivePlayer(Player):
     def __init__(self):
