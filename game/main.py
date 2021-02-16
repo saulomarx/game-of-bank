@@ -12,6 +12,8 @@ def _tabletop_move(player, tabletop_size):
     new_position = position + rolled_dice
     if new_position > tabletop_size:
         new_position -= tabletop_size
+        player.receive_money(100)
+    player.set_position(new_position)
 
 
 def _shuffle_players(players):
@@ -35,20 +37,22 @@ def _start_tabletop():
 def _game():
     max_rounds = 100
 
-    player1 = ImpulsivePlayer()
-    player2 = DemandingPlayer()
-    player3 = CautiousPlayer()
-    player4 = RandomPlayer()
+    player1 = ImpulsivePlayer('Impulsivo')
+    player2 = DemandingPlayer('Exigente')
+    player3 = CautiousPlayer('Cuidadoso')
+    player4 = RandomPlayer('Aleatorio')
 
     all_players = [player1, player2, player3, player4]
     _shuffle_players(all_players)
 
     table_top = _start_tabletop()
-
+    table_top_size = len(table_top)
     for round in range(max_rounds):
         print(round+1)
         for player in all_players:
-            print()
+            print(player.name)
+            _tabletop_move(player, table_top_size)
+
 
 
 if __name__ == "__main__":
