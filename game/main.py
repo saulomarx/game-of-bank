@@ -3,8 +3,7 @@ from models import *
 
 
 def _roll_dice():
-    # TODO CHANGE HERE!
-    return random.randrange(1, 3)
+    return random.randrange(1, 7)
 
 
 def _tabletop_move(player, tabletop_size):
@@ -56,19 +55,13 @@ def _buy_or_pay(player, building):
         print(player.name)
         will_buy = player.will_buy(building.value)
         if will_buy:
-            print("Comprando")
             buying_building(player, building)
-        else:
-            print("Nao compra")
     elif owner != player:
-        print("paga")
         _pay_rent(owner, player, building.value)
-    else:
-        pass
 
 
 def _game():
-    max_rounds = 100
+    max_rounds = 1000
 
     player1 = ImpulsivePlayer('Impulsivo')
     player2 = DemandingPlayer('Exigente')
@@ -78,17 +71,19 @@ def _game():
     all_players = [player1, player2, player3, player4]
     _shuffle_players(all_players)
 
-    table_top = _start_tabletop()
-    table_top_size = len(table_top)
+    tabletop = _start_tabletop()
+    tabletop_size = len(tabletop)
 
-    for round in range(max_rounds):
+    actual_round = 0
+    while actual_round < max_rounds and len(all_players) > 1:
+        actual_round += 1
         for player in all_players:
-            if player.wallet > 0:
-                player_position = _tabletop_move(player, table_top_size)
-                if player_position != 0:
-                    _buy_or_pay(player, table_top[player_position])
-                if player.wallet == 0:
-                    print("faliu")
+            player_position = _tabletop_move(player, tabletop_size)
+            if player_position != 0:
+                _buy_or_pay(player, tabletop[player_position])
+            if player.wallet == 0:
+                _remove_bankrupt_player(tabletop, player)
+                all_players.remove(player)
 
 
 if __name__ == "__main__":
