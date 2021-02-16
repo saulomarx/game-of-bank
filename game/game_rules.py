@@ -60,7 +60,7 @@ def _buy_or_pay(player, building):
 def _show_winner(player_list):
     ranked = sorted(player_list, key=attrgetter("wallet"), reverse=True)
     print(ranked[0].name, "e o vencedor!")
-    return ranked[0].name
+    return ranked[0]
 
 
 def _single_game(all_players, max_rounds):
