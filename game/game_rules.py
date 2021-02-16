@@ -34,8 +34,8 @@ def _pay_rent(owner_player, paying_player, value):
 def _start_tabletop():
     tabletop = [None]
     for _ in range(20):
-        value = randrange(3, 8) * 10
-        building = Building(value)
+        rent = randrange(3, 8) * 10
+        building = Building(rent)
         tabletop.append(building)
     return tabletop
 
@@ -50,7 +50,7 @@ def _buy_or_pay(player, building):
     owner = building.owner
 
     if owner is None:
-        will_buy = player.will_buy(building.value)
+        will_buy = player.will_buy(building)
         if will_buy:
             buying_building(player, building)
     elif owner != player:
