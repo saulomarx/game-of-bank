@@ -2,14 +2,14 @@ from random import getrandbits
 
 
 class Player:
-    def __init__(self, wallet=300):
-        self.wallet = wallet
+    def __init__(self):
+        self.wallet = 300
         self.position = 0
 
 
 class ImpulsivePlayer(Player):
     def __init__(self):
-        super.__init__()
+        super().__init__()
 
     def will_buy(self, value):
         if value <= self.wallet:
@@ -20,7 +20,7 @@ class ImpulsivePlayer(Player):
 
 class DemandingPlayer(Player):
     def __init__(self):
-        super.__init__()
+        super().__init__()
 
     def will_buy(self, value):
         if self.wallet >= value > 50:
@@ -31,7 +31,7 @@ class DemandingPlayer(Player):
 
 class CautiousPlayer(Player):
     def __init__(self):
-        super.__init__()
+        super().__init__()
 
     def will_buy(self, value):
         is_buying = (self.wallet - value) >= 80
@@ -43,7 +43,7 @@ class CautiousPlayer(Player):
 
 class RandomPlayer(Player):
     def __init__(self):
-        super.__init__()
+        super().__init__()
 
     def will_buy(self, value):
         is_buying = bool(getrandbits(1))
