@@ -1,9 +1,12 @@
-# game-of-life
+## Banco 
 
-## BrasilPrev
+### Rodando
+Utilize `Python 3` para executar:
+``` bash
+python3 game/main.py 
+```
 
-## O Desafio
-
+### Contexto
 Considere o seguinte jogo hipotético muito semelhante a Banco Imobiliário, onde várias de suas mecânicas
 foram simplificadas. Numa partida desse jogo, os jogadores se alteram em rodadas, numa ordem definida
 aleatoriamente no começo da partida. Os jogadores sempre começam uma partida com saldo de 300 para
@@ -64,10 +67,10 @@ partida.
 ### Saída
 Uma execução do programa proposto deve rodar 300 simulações, imprimindo no console os dados referentes
 às execuções. Esperamos encontrar nos dados as seguintes informações:
-- Quantas partidas terminam por time out (1000 rodadas);
+- Quantas partidas terminam por timeout (1000 rodadas);
 
 - Quantos turnos em média demora uma partida;
 
-- Qual a porcentagem de vitórias por comportamento dos jogadores;
+- Qual a percentagem de vitórias por comportamento dos jogadores;
 
 - Qual o comportamento que mais vence.
